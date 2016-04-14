@@ -8,22 +8,21 @@ from PIL import Image
 
 
 def main():
-    imgSize = 200
-    image = Image.new("L", (imgSize, imgSize))
+    img_size = 200
+    image = Image.new("L", (img_size, img_size))
     pixels = image.load()
 
     pi2 = pi * 2.0
-    MAXX = imgSize + 1
-    MAXY = imgSize + 1
-    qmax = imgSize
+    max_x = img_size + 1
+    max_y = img_size + 1
+    qmax = img_size
     for q in range(4, qmax, 2):
         for p in range(1, q, 2):
             if gcd(p, q) <= 1:
                 sigma = pi2 * p / q
                 nold = 0
-                ie = 0
-                for ie in range(0, MAXY + 2):
-                    e = 8.0 * ie / MAXY - 4.0 - 4.0 / MAXY
+                for ie in range(0, max_y + 2):
+                    e = 8.0 * ie / max_y - 4.0 - 4.0 / max_y
                     n = 0
                     polyold = 1.0
                     poly = 2.0 * cos(sigma) - e
@@ -79,11 +78,12 @@ def main():
                     if poly * polynew < 0.0:
                         n += 1
                     if n > nold:
-                        pixels[int(MAXY - ie), int(MAXX * p / q)] = 255
-                        pixels[int(MAXX * p / q), int(MAXY - ie)] = 255
+                        pixels[int(max_y - ie), int(max_x * p / q)] = 255
+                        pixels[int(max_x * p / q), int(max_y - ie)] = 255
                     nold = n
 
     image.save("HofstadterButterflyFractal.png", "PNG")
+
 
 if __name__ == '__main__':
     main()
