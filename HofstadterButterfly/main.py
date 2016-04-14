@@ -2,7 +2,7 @@
 # http://en.wikipedia.org/wiki/Hofstadter%27s_butterfly
 # Wolfgang Kinzel/Georg Reents,"Physics by Computer" Springer Press (1998)
 # FB36 - 20130922
-import math
+from math import pi, cos
 from fractions import gcd
 from PIL import Image
 
@@ -10,7 +10,7 @@ imgSize = 200
 image = Image.new("RGB", (imgSize, imgSize))
 pixels = image.load()
 
-pi2 = math.pi * 2.0
+pi2 = pi * 2.0
 MAXX = imgSize + 1
 MAXY = imgSize + 1
 qmax = imgSize
@@ -24,12 +24,12 @@ for q in range(4, qmax, 2):
                 e = 8.0 * ie / MAXY - 4.0 - 4.0 / MAXY
                 n = 0
                 polyold = 1.0
-                poly = 2.0 * math.cos(sigma) - e
+                poly = 2.0 * cos(sigma) - e
                 if polyold * poly < 0.0:
                     n += 1
 
                 for m in range(2, q // 2):
-                    polynew = (2.0 * math.cos(sigma * m) - e) * poly - polyold
+                    polynew = (2.0 * cos(sigma * m) - e) * poly - polyold
                     if poly * polynew < 0.0:
                         n += 1
                     polyold = poly
@@ -39,20 +39,20 @@ for q in range(4, qmax, 2):
                 poly = 2.0 - e
                 if polyold * poly < 0.0:
                     n += 1
-                polynew = (2.0 * math.cos(sigma) - e) * poly - 2.0 * polyold
+                polynew = (2.0 * cos(sigma) - e) * poly - 2.0 * polyold
                 if poly * polynew < 0.0:
                     n += 1
                 polyold = poly
                 poly = polynew
 
                 for m in range(2, q // 2):
-                    polynew = (2.0 * math.cos(sigma * m) - e) * poly - polyold
+                    polynew = (2.0 * cos(sigma * m) - e) * poly - polyold
                     if poly * polynew < 0.0:
                         n += 1
                     polyold = poly
                     poly = polynew
 
-                polynew = (2.0 * math.cos(sigma * q / 2.0) - e) * poly - 2.0 * polyold
+                polynew = (2.0 * cos(sigma * q / 2.0) - e) * poly - 2.0 * polyold
                 if poly * polynew < 0.0:
                     n += 1
 
@@ -60,20 +60,20 @@ for q in range(4, qmax, 2):
                 poly = 2.0 - e
                 if polyold * poly < 0.0:
                     n += 1
-                polynew = (2.0 * math.cos(sigma) - e) * poly - 2.0 * polyold
+                polynew = (2.0 * cos(sigma) - e) * poly - 2.0 * polyold
                 if poly * polynew < 0.0:
                     n += 1
                 polyold = poly
                 poly = polynew
 
                 for m in range(2, q // 2):
-                    polynew = (2.0 * math.cos(sigma * m) - e) * poly - polyold
+                    polynew = (2.0 * cos(sigma * m) - e) * poly - polyold
                     if poly * polynew < 0.0:
                         n += 1
                     polyold = poly
                     poly = polynew
 
-                polynew = (2.0 * math.cos(sigma * q / 2.0) - e) * poly - 2.0 * polyold
+                polynew = (2.0 * cos(sigma * q / 2.0) - e) * poly - 2.0 * polyold
                 if poly * polynew < 0.0:
                     n += 1
                 if n > nold:
