@@ -15,7 +15,6 @@ MAXX = imgSize + 1
 MAXY = imgSize + 1
 qmax = imgSize
 for q in range(4, qmax, 2):
-    print(str(100 * q / qmax).zfill(2) + "%")
     for p in range(1, q, 2):
         if gcd(p, q) <= 1:
             sigma = pi2 * p / q
