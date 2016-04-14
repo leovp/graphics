@@ -1,6 +1,14 @@
+import cython
 from libc.math cimport cos, sin
 
-def butterfly_iteration(pixels, max_x, max_y, p, q, sigma):
+@cython.cdivision(True)
+def butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, double sigma):
+    cdef:
+        int n, nold
+        int ie, m
+        int x, y
+        double e
+
     nold = 0
     for ie in range(0, max_y + 2):
         e = 8.0 * ie / max_y - 4.0 - 4.0 / max_y
@@ -59,6 +67,7 @@ def butterfly_iteration(pixels, max_x, max_y, p, q, sigma):
         if poly * polynew < 0.0:
             n += 1
         if n > nold:
-            pixels[int(max_y - ie), int(max_x * p / q)] = 255
-            pixels[int(max_x * p / q), int(max_y - ie)] = 255
+            x, y = int(max_y - ie), int(max_x * p / q)
+            pixels[x, y] = 255
+            pixels[y, x] = 255
         nold = n
