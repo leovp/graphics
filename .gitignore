@@ -6,8 +6,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
+# C / Cython extensions
 *.so
+*.c
+*.pyx
 
 # Distribution / packaging
 .Python
