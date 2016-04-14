@@ -7,7 +7,7 @@ from fractions import gcd
 from PIL import Image
 
 imgSize = 200
-image = Image.new("RGB", (imgSize, imgSize))
+image = Image.new("L", (imgSize, imgSize))
 pixels = image.load()
 
 pi2 = pi * 2.0
@@ -77,8 +77,8 @@ for q in range(4, qmax, 2):
                 if poly * polynew < 0.0:
                     n += 1
                 if n > nold:
-                    pixels[int(MAXY - ie), int(MAXX * p / q)] = (255, 255, 255)
-                    pixels[int(MAXX * p / q), int(MAXY - ie)] = (255, 255, 255)
+                    pixels[int(MAXY - ie), int(MAXX * p / q)] = 255
+                    pixels[int(MAXX * p / q), int(MAXY - ie)] = 255
                 nold = n
 
 image.save("HofstadterButterflyFractal.png", "PNG")
