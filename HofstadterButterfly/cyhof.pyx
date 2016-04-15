@@ -1,8 +1,11 @@
 import cython
 from libc.math cimport cos, sin
 
+from fractions import gcd
+from math import pi
+
 @cython.cdivision(True)
-def butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, double sigma):
+cdef butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, double sigma):
     cdef:
         int n, nold
         int ie, m
@@ -71,3 +74,15 @@ def butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, doubl
             pixels[x, y] = 255
             pixels[y, x] = 255
         nold = n
+
+
+def butterfly(object pixels, int max_x, int max_y, int qmax):
+    cdef:
+        int q, p
+        double sigma
+
+    for q in range(4, qmax, 2):
+        for p in range(1, q, 2):
+            if gcd(p, q) <= 1:
+                sigma = 2 * pi * p / q
+                butterfly_iteration(pixels, max_x, max_y, p, q, sigma)
