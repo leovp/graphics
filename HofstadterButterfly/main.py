@@ -8,7 +8,7 @@ from cyhof import butterfly
 
 
 def main():
-    img_size = 200
+    img_size = 256
     image = Image.new("L", (img_size, img_size))
     pixels = image.load()
 
