@@ -4,11 +4,13 @@ from libc.math cimport cos, sin, M_PI
 cdef extern from "math.h":
     double M_PI
 
+
 @cython.cdivision(True)
 cdef int gcd(int a, int b):
     while b:
         a, b = b, a % b
     return a
+
 
 @cython.cdivision(True)
 cdef butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, double sigma):
@@ -82,6 +84,7 @@ cdef butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, doub
         nold = n
 
 
+@cython.cdivision(True)
 def butterfly(object pixels, int max_x, int max_y, int qmax):
     cdef:
         int q, p
