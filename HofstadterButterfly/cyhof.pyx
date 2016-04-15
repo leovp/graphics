@@ -1,7 +1,8 @@
 import cython
-from libc.math cimport cos, sin
+from libc.math cimport cos, sin, M_PI
 
-from math import pi
+cdef extern from "math.h":
+    double M_PI
 
 @cython.cdivision(True)
 cdef int gcd(int a, int b):
@@ -89,5 +90,5 @@ def butterfly(object pixels, int max_x, int max_y, int qmax):
     for q in range(4, qmax, 2):
         for p in range(1, q, 2):
             if gcd(p, q) <= 1:
-                sigma = 2 * pi * p / q
+                sigma = 2 * M_PI * p / q
                 butterfly_iteration(pixels, max_x, max_y, p, q, sigma)
