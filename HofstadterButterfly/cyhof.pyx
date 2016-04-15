@@ -1,4 +1,7 @@
 import cython
+from cpython cimport array
+import array
+
 from libc.math cimport cos, sin, M_PI
 
 cdef extern from "math.h":
@@ -13,7 +16,9 @@ cdef int gcd(int a, int b):
 
 
 @cython.cdivision(True)
-cdef butterfly_iteration(object pixels, int img_size, int p, int q, double sigma):
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cdef butterfly_iteration(unsigned char[:] out, int img_size, int p, int q, double sigma):
     cdef:
         int max_x, max_y
         int n, nold
@@ -81,13 +86,18 @@ cdef butterfly_iteration(object pixels, int img_size, int p, int q, double sigma
             n += 1
         if n > nold:
             x, y = int(max_y - ie), int(max_x * p / q)
-            pixels[x, y] = 255
-            pixels[y, x] = 255
+            idx0, idx1 = x * img_size + y, y * img_size + x
+            out[idx0] = 255
+            out[idx1] = 255
         nold = n
 
 
 @cython.cdivision(True)
-def butterfly(object pixels, int img_size):
+def butterfly(int img_size):
+    cdef array.array output = array.array('B')
+    array.resize(output, img_size * img_size)
+    cdef unsigned char[:] out = output
+
     cdef:
         int q, p
         double sigma
@@ -96,4 +106,6 @@ def butterfly(object pixels, int img_size):
         for p in range(1, q, 2):
             if gcd(p, q) <= 1:
                 sigma = 2 * M_PI * p / q
-                butterfly_iteration(pixels, img_size, p, q, sigma)
+                butterfly_iteration(out, img_size, p, q, sigma)
+
+    return output
