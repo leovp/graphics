@@ -1,8 +1,13 @@
 import cython
 from libc.math cimport cos, sin
 
-from fractions import gcd
 from math import pi
+
+@cython.cdivision(True)
+cdef int gcd(int a, int b):
+    while b:
+        a, b = b, a % b
+    return a
 
 @cython.cdivision(True)
 cdef butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, double sigma):
