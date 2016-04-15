@@ -13,13 +13,15 @@ cdef int gcd(int a, int b):
 
 
 @cython.cdivision(True)
-cdef butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, double sigma):
+cdef butterfly_iteration(object pixels, int img_size, int p, int q, double sigma):
     cdef:
+        int max_x, max_y
         int n, nold
         int ie, m
         int x, y
         double e
 
+    max_x = max_y = img_size + 1
     nold = 0
     for ie in range(0, max_y + 2):
         e = 8.0 * ie / max_y - 4.0 - 4.0 / max_y
@@ -85,13 +87,13 @@ cdef butterfly_iteration(object pixels, int max_x, int max_y, int p, int q, doub
 
 
 @cython.cdivision(True)
-def butterfly(object pixels, int max_x, int max_y, int qmax):
+def butterfly(object pixels, int img_size):
     cdef:
         int q, p
         double sigma
 
-    for q in range(4, qmax, 2):
+    for q in range(4, img_size, 2):
         for p in range(1, q, 2):
             if gcd(p, q) <= 1:
                 sigma = 2 * M_PI * p / q
-                butterfly_iteration(pixels, max_x, max_y, p, q, sigma)
+                butterfly_iteration(pixels, img_size, p, q, sigma)

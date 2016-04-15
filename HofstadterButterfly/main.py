@@ -15,7 +15,7 @@ def main():
     max_x = img_size + 1
     max_y = img_size + 1
     qmax = img_size
-    butterfly(pixels, max_x, max_y, qmax)
+    butterfly(pixels, img_size)
 
     image.save("HofstadterButterflyFractal.png", "PNG")
 
