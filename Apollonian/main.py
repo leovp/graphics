@@ -1,21 +1,21 @@
 # Circle Inversion Fractals (Apollonian Gasket) (Escape-time Algorithm)
 # FB36 - 20131031
 import math
-import random
 from collections import deque
 from PIL import Image
+
 imgx = 512 * 2
 imgy = 512 * 2
 image = Image.new("RGB", (imgx, imgy))
 pixels = image.load()
-#n = random.randint(3, 6) # of main circles
-n = 3
-a = math.pi * 2.0 / n
+
+circles = 3
+a = math.pi * 2.0 / circles
 r = math.sin(a) / math.sin((math.pi - a) / 2.0) / 2.0 # r of main circles
 h = math.sqrt(1.0 - r * r)
 xa = -h; xb = h; ya = -h; yb = h # viewing area
 cx = [0.0]; cy = [0.0]; cr = [1.0 - r] # center circle
-for i in range(n): # add main circles
+for i in range(circles): # add main circles
     cx.append(math.cos(a * i))
     cy.append(math.sin(a * i))
     cr.append(r)
@@ -28,7 +28,7 @@ for ky in range(imgy):
         queue.append((x, y, 0))
         while len(queue) > 0: # iterate points until none left
             (x, y, i) = queue.popleft()
-            for k in range(n + 1):
+            for k in range(circles + 1):
                 dx = x - cx[k]; dy = y - cy[k]
                 d = math.hypot(dx, dy)
                 if d <= cr[k]:
