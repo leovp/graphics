@@ -11,11 +11,11 @@ pixels = image.load()
 
 circles = 3
 a = math.pi * 2.0 / circles
-r = math.sin(a) / math.sin((math.pi - a) / 2.0) / 2.0 # r of main circles
+r = math.sin(a) / math.sin((math.pi - a) / 2.0) / 2.0  # r of main circles
 h = math.sqrt(1.0 - r * r)
-xa = -h; xb = h; ya = -h; yb = h # viewing area
-cx = [0.0]; cy = [0.0]; cr = [1.0 - r] # center circle
-for i in range(circles): # add main circles
+xa = -h; xb = h; ya = -h; yb = h  # viewing area
+cx = [0.0]; cy = [0.0]; cr = [1.0 - r]  # center circle
+for i in range(circles):  # add main circles
     cx.append(math.cos(a * i))
     cy.append(math.sin(a * i))
     cr.append(r)
@@ -26,7 +26,7 @@ for ky in range(imgy):
         y = float(ky) / (imgy - 1) * (yb - ya) + ya
         queue = deque([])
         queue.append((x, y, 0))
-        while len(queue) > 0: # iterate points until none left
+        while len(queue) > 0:  # iterate points until none left
             (x, y, i) = queue.popleft()
             for k in range(circles + 1):
                 dx = x - cx[k]; dy = y - cy[k]
