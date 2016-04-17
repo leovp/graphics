@@ -44,12 +44,12 @@ for ky in range(imgy):
                 dy = y - cy[k]
                 d = math.hypot(dx, dy)
                 if d <= cr[k]:
-                    dx = dx / d
-                    dy = dy / d
+                    dx /= d
+                    dy /= d
                     dnew = cr[k] ** 2.0 / d
                     xnew = dnew * dx + cx[k]
                     ynew = dnew * dy + cy[k]
-                    if xnew >= xa and xnew <= xb and ynew >= ya and ynew <= yb:
+                    if xa <= xnew <= xb and ya <= ynew <= yb:
                         if i + 1 == maxIt:
                             break
 
