@@ -40,15 +40,19 @@ for ky in range(imgy):
         while len(queue) > 0:  # iterate points until none left
             (x, y, i) = queue.popleft()
             for k in range(circles + 1):
-                dx = x - cx[k]; dy = y - cy[k]
+                dx = x - cx[k]
+                dy = y - cy[k]
                 d = math.hypot(dx, dy)
                 if d <= cr[k]:
-                    dx = dx / d; dy = dy / d
+                    dx = dx / d
+                    dy = dy / d
                     dnew = cr[k] ** 2.0 / d
                     xnew = dnew * dx + cx[k]
                     ynew = dnew * dy + cy[k]
                     if xnew >= xa and xnew <= xb and ynew >= ya and ynew <= yb:
-                        if i + 1 == maxIt: break
+                        if i + 1 == maxIt:
+                            break
+
                         queue.append((xnew, ynew, i + 1))
-        pixels[kx, ky] = (i % 16 * 16 , i % 8 * 32, i % 4 * 64)
+        pixels[kx, ky] = (i % 16 * 16, i % 8 * 32, i % 4 * 64)
 image.save('result.png')
