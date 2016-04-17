@@ -13,13 +13,24 @@ circles = 3
 a = math.pi * 2.0 / circles
 r = math.sin(a) / math.sin((math.pi - a) / 2.0) / 2.0  # r of main circles
 h = math.sqrt(1.0 - r * r)
-xa = -h; xb = h; ya = -h; yb = h  # viewing area
-cx = [0.0]; cy = [0.0]; cr = [1.0 - r]  # center circle
+
+# viewing area
+xa = -h
+xb = h
+ya = -h
+yb = h
+
+# center circle
+cx = [0.0]
+cy = [0.0]
+cr = [1.0 - r]
+
 for i in range(circles):  # add main circles
     cx.append(math.cos(a * i))
     cy.append(math.sin(a * i))
     cr.append(r)
-maxIt = 128 # of iterations
+
+maxIt = 128  # of iterations
 for ky in range(imgy):
     for kx in range(imgx):
         x = float(kx) / (imgx - 1) * (xb - xa) + xa
