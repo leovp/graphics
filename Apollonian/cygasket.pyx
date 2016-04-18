@@ -1,7 +1,14 @@
-from math import cos, sin, sqrt, hypot, pi
+import cython
+
+from libc.math cimport cos, sin, sqrt, hypot
+cdef extern from "math.h":
+    double M_PI
+
 from collections import deque
 
-
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
 def appolonian(object pixels, int img_size, int max_it):
     cdef:
         int circles
@@ -14,8 +21,8 @@ def appolonian(object pixels, int img_size, int max_it):
         int i
 
     circles = 3
-    a = pi * 2.0 / circles
-    r = sin(a) / sin((pi - a) / 2.0) / 2.0  # r of main circles
+    a = M_PI * 2.0 / circles
+    r = sin(a) / sin((M_PI - a) / 2.0) / 2.0  # r of main circles
     h = sqrt(1.0 - r * r)
 
     # center circle
