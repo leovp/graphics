@@ -16,8 +16,8 @@ def appolonian(object pixels, int img_size, int max_it):
         double xa, xb, ya, yb
         list cx, cy, cr
 
-        double x, y
-        double xnew, ynew
+        double x, y, dx, dy, d
+        double xnew, ynew, dnew
         int i
 
     circles = 3
