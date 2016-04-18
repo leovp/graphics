@@ -2,7 +2,13 @@ from math import cos, sin, sqrt, hypot, pi
 from collections import deque
 
 
-def appolonian(pixels, img_size, max_it):
+def appolonian(object pixels, int img_size, int max_it):
+    cdef:
+        int circles
+        double a, r, h
+        double xa, xb, ya, yb
+        list cx, cy, cr
+
     circles = 3
     a = pi * 2.0 / circles
     r = sin(a) / sin((pi - a) / 2.0) / 2.0  # r of main circles
