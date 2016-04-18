@@ -9,6 +9,10 @@ def appolonian(object pixels, int img_size, int max_it):
         double xa, xb, ya, yb
         list cx, cy, cr
 
+        double x, y
+        double xnew, ynew
+        int i
+
     circles = 3
     a = pi * 2.0 / circles
     r = sin(a) / sin((pi - a) / 2.0) / 2.0  # r of main circles
@@ -34,7 +38,7 @@ def appolonian(object pixels, int img_size, int max_it):
             for kx in range(img_size):
                 x = float(kx) / (img_size - 1) * (xb - xa) + xa
                 y = float(ky) / (img_size - 1) * (yb - ya) + ya
-                queue = deque([])
+                queue = deque()
                 queue.append((x, y, 0))
                 while len(queue) > 0:  # iterate points until none left
                     (x, y, i) = queue.popleft()
