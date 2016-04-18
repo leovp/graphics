@@ -24,7 +24,7 @@ def appolonian(pixels, img_size, max_it):
     ya = -h
     yb = h
 
-    for ky in range(imgy):
+    for ky in range(img_size):
             for kx in range(img_size):
                 x = float(kx) / (img_size - 1) * (xb - xa) + xa
                 y = float(ky) / (img_size - 1) * (yb - ya) + ya
