@@ -19,6 +19,7 @@ def appolonian(object pixels, int img_size, int max_it):
         double x, y, dx, dy, d
         double xnew, ynew, dnew
         int i
+        double cxk, cyk, crk
 
     circles = 3
     a = M_PI * 2.0 / circles
@@ -50,15 +51,19 @@ def appolonian(object pixels, int img_size, int max_it):
                 while len(queue) > 0:  # iterate points until none left
                     (x, y, i) = queue.popleft()
                     for k in range(circles + 1):
-                        dx = x - cx[k]
-                        dy = y - cy[k]
+                        cxk = cx[k]
+                        cyk = cy[k]
+                        crk = cr[k]
+
+                        dx = x - cxk
+                        dy = y - cyk
                         d = hypot(dx, dy)
-                        if d <= cr[k]:
+                        if d <= crk:
                             dx /= d
                             dy /= d
-                            dnew = cr[k] ** 2.0 / d
-                            xnew = dnew * dx + cx[k]
-                            ynew = dnew * dy + cy[k]
+                            dnew = crk ** 2.0 / d
+                            xnew = dnew * dx + cxk
+                            ynew = dnew * dy + cyk
                             if xa <= xnew <= xb and ya <= ynew <= yb:
                                 if i + 1 == max_it:
                                     break
