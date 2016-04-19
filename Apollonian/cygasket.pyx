@@ -43,30 +43,30 @@ def appolonian(object pixels, int img_size, int max_it):
     yb = h
 
     for ky in range(img_size):
-            for kx in range(img_size):
-                x = float(kx) / (img_size - 1) * (xb - xa) + xa
-                y = float(ky) / (img_size - 1) * (yb - ya) + ya
-                queue = deque()
-                queue.append((x, y, 0))
-                while len(queue) > 0:  # iterate points until none left
-                    (x, y, i) = queue.popleft()
-                    for k in range(circles + 1):
-                        cxk = cx[k]
-                        cyk = cy[k]
-                        crk = cr[k]
+        for kx in range(img_size):
+            x = float(kx) / (img_size - 1) * (xb - xa) + xa
+            y = float(ky) / (img_size - 1) * (yb - ya) + ya
+            queue = deque()
+            queue.append((x, y, 0))
+            while len(queue) > 0:  # iterate points until none left
+                (x, y, i) = queue.popleft()
+                for k in range(circles + 1):
+                    cxk = cx[k]
+                    cyk = cy[k]
+                    crk = cr[k]
 
-                        dx = x - cxk
-                        dy = y - cyk
-                        d = hypot(dx, dy)
-                        if d <= crk:
-                            dx /= d
-                            dy /= d
-                            dnew = crk ** 2.0 / d
-                            xnew = dnew * dx + cxk
-                            ynew = dnew * dy + cyk
-                            if xa <= xnew <= xb and ya <= ynew <= yb:
-                                if i + 1 == max_it:
-                                    break
+                    dx = x - cxk
+                    dy = y - cyk
+                    d = hypot(dx, dy)
+                    if d <= crk:
+                        dx /= d
+                        dy /= d
+                        dnew = crk ** 2.0 / d
+                        xnew = dnew * dx + cxk
+                        ynew = dnew * dy + cyk
+                        if xa <= xnew <= xb and ya <= ynew <= yb:
+                            if i + 1 == max_it:
+                                break
 
-                                queue.append((xnew, ynew, i + 1))
-                pixels[kx, ky] = (i % 16 * 16, i % 8 * 32, i % 4 * 64)
+                            queue.append((xnew, ynew, i + 1))
+            pixels[kx, ky] = (i % 16 * 16, i % 8 * 32, i % 4 * 64)
