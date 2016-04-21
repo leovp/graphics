@@ -4,6 +4,6 @@ from Cython.Distutils import build_ext
 
 setup(
     cmdclass = {'build_ext': build_ext},
-    ext_modules = [Extension("cyhof", ["cyhof.pyx"])]
+    ext_modules = [Extension("cyhof", ["cyhof.pyx"], extra_compile_args=['-fopenmp'], extra_link_args=['-fopenmp'])]
 )
 

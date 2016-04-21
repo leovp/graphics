@@ -1,4 +1,6 @@
 import cython
+from cython.parallel import prange
+
 from cpython cimport array
 import array
 
@@ -9,7 +11,7 @@ cdef extern from "math.h":
 
 
 @cython.cdivision(True)
-cdef int gcd(int a, int b):
+cdef int gcd(int a, int b) nogil:
     while b:
         a, b = b, a % b
     return a
@@ -18,7 +20,7 @@ cdef int gcd(int a, int b):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef int butterfly_iteration(unsigned char[:] out, int img_size, int p, int q, double sigma):
+cdef int butterfly_iteration(unsigned char[:] out, int img_size, int p, int q, double sigma) nogil:
     cdef:
         int max_x, max_y
         int n, nold
@@ -104,7 +106,7 @@ def butterfly(int img_size):
         int q, p
         double sigma
 
-    for q in range(4, img_size, 2):
+    for q in prange(4, img_size, 2, nogil=True, schedule='guided'):
         for p in range(1, q, 2):
             if gcd(p, q) <= 1:
                 sigma = 2 * M_PI * p / q
