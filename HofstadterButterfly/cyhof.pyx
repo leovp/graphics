@@ -18,7 +18,7 @@ cdef int gcd(int a, int b):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef butterfly_iteration(unsigned char[:] out, int img_size, int p, int q, double sigma):
+cdef int butterfly_iteration(unsigned char[:] out, int img_size, int p, int q, double sigma):
     cdef:
         int max_x, max_y
         int n, nold
@@ -90,6 +90,8 @@ cdef butterfly_iteration(unsigned char[:] out, int img_size, int p, int q, doubl
             out[idx0] = 255
             out[idx1] = 255
         nold = n
+
+    return 0
 
 
 @cython.cdivision(True)
