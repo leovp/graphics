@@ -60,8 +60,8 @@ def draw_mandelbrot(double scale, unsigned int size):
     # Draw our image
     for y in range(size):
         for x in range(size):
-            zr = x * scale - 0.5
-            zi = y * scale - 1.0
+            zr = x * scale - 1.5
+            zi = y * scale - 1.5
             v = iterate_mandelbrot(0.3, 0.6, zr, zi)
 
             color_id = int(v * (colors_max - 1))
